@@ -1,6 +1,13 @@
+#[macro_use]
+extern crate rocket;
 use spid::test;
 
-fn main() {
-	println!("Hello, world!");
-	test();
+#[get("/")]
+fn index() -> &'static str {
+	test()
+}
+
+#[launch]
+fn rocket() -> _ {
+	rocket::build().mount("/", routes![index])
 }

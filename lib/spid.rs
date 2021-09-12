@@ -1,3 +1,3 @@
-pub fn test() {
-	println!("Test");
+pub fn test() -> &'static str {
+	"Hello, SPID!"
 }
