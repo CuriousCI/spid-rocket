@@ -9,7 +9,7 @@ edition = "2018"
 
 [lib]
 name = "spid"
-path = "src/lib.rs"
+path = "lib/spid.rs"
 
 [[bin]]
 name = "spid-rocket"
