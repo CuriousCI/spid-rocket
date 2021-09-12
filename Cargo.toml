@@ -6,3 +6,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+[lib]
+name = "spid"
+path = "src/lib.rs"
+
+[[bin]]
+name = "spid-rocket"
+path = "src/main.rs"

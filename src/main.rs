@@ -1,3 +1,6 @@
+use spid::test;
+
 fn main() {
-    println!("Hello, world!");
+	println!("Hello, world!");
+	test();
 }
