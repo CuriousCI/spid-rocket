@@ -1,12 +1,31 @@
-pub enum SignOnBinding {
-	REDIRECT,
+use xml;
+
+pub enum Binding {
 	POST,
+	REDIRECT,
 }
 
-pub enum LogoutBinding {
-	SOAP,
-	REDIRECT,
-	POST,
+impl Binding {
+	fn value(&self) -> &'static str {
+		format!(
+			"urn:oasis:names:tc:SAML:2.0:bindings:{}",
+			match *self {
+				Binding::POST => "HTTP-POST",
+				Binding::REDIRECT => "HTTP-Redirect",
+			}
+		)
+	}
+}
+
+pub struct SingleSignOnService {
+	pub location: &'static str,
+	pub binding: Binding,
+}
+
+pub struct SingleLogoutService {
+	pub location: &'static str,
+	pub binding: Binding,
+	pub response_location: Option<&'static str>,
 }
 
 pub struct IdentityProvider {
@@ -19,39 +38,30 @@ pub struct IdentityProvider {
 
 	format: &'static str,
 
-	pub sign_on_location: &'static str,
-	pub sign_on_binding: SignOnBinding,
-
-	pub logout_location: &'static str,
-	pub logout_binding: LogoutBinding,
+	pub sign_on_services: Vec<SingleSignOnService>,
+	pub logout_services: Vec<SingleLogoutService>,
 
 	pub organization_name: &'static str,
 	pub organization_url: &'static str,
 }
 
-impl Default for IdentityProvider {
-	fn default() -> Self {
-		IdentityProvider {
-			entity_id: Default::default(),
+// impl Default for IdentityProvider {
+// 	fn default() -> Self {
+// 		IdentityProvider {
+// 			entity_id: Default::default(),
 
-			protocol_support_enumeration: Default::default(),
-			want_auth_request_signed: true,
+// 			protocol_support_enumeration: Default::default(),
+// 			want_auth_request_signed: true,
 
-			key_descriptor: Default::default(),
+// 			key_descriptor: Default::default(),
 
-			format: "urn:oasis:names:tc:SAML:2.0:nameidformat:transient",
+// 			format: "urn:oasis:names:tc:SAML:2.0:nameidformat:transient",
 
-			sign_on_location: Default::default(),
-			sign_on_binding: SignOnBinding::REDIRECT,
-
-			logout_location: Default::default(),
-			logout_binding: LogoutBinding::POST,
-
-			organization_name: Default::default(),
-			organization_url: Default::default(),
-		}
-	}
-}
+// 			organization_name: Default::default(),
+// 			organization_url: Default::default(),
+// 		}
+// 	}
+// }
 
 impl IdentityProvider {
 	pub fn xml() {}

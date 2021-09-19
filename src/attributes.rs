@@ -1,5 +1,23 @@
 use chrono::naive::NaiveDate;
 
+pub enum Attribute {
+	SPID_CODE,
+}
+
+impl Attribute {
+	fn name(&self) -> &'static str {
+		match *self {
+			Attribute::SPID_CODE => "spidCode",
+		}
+	}
+
+	fn xsi_type(&self) -> &'static str {
+		match *self {
+			Attribute::SPID_CODE => "xs:string",
+		}
+	}
+}
+
 // #[derive(Default)]
 pub struct Attributes {
 	pub spid_code: String,
